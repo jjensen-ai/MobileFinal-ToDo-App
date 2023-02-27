@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C3A2FED29AAA2CD00AEC6DB /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A2FEC29AAA2CD00AEC6DB /* Theme.swift */; };
+		4C3A2FEF29AAB2A500AEC6DB /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A2FEE29AAB2A500AEC6DB /* ToDo.swift */; };
+		4C3A2FF129AABB3000AEC6DB /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A2FF029AABB3000AEC6DB /* CardView.swift */; };
+		4C3A2FFA29ABD45B00AEC6DB /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A2FF929ABD45B00AEC6DB /* DatePickerView.swift */; };
+		4C3A2FFC29ABE82100AEC6DB /* ToDoForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A2FFB29ABE82100AEC6DB /* ToDoForm.swift */; };
+		4C3A2FFE29AC251A00AEC6DB /* ToDoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3A2FFD29AC251A00AEC6DB /* ToDoDisplay.swift */; };
 		4C94C51429A938A700EA60C3 /* ToDoPlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94C51329A938A700EA60C3 /* ToDoPlannerApp.swift */; };
 		4C94C51629A938A700EA60C3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94C51529A938A700EA60C3 /* ContentView.swift */; };
 		4C94C51829A938A800EA60C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C94C51729A938A800EA60C3 /* Assets.xcassets */; };
@@ -14,6 +20,7 @@
 		4C94C52529A938A800EA60C3 /* ToDoPlannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94C52429A938A800EA60C3 /* ToDoPlannerTests.swift */; };
 		4C94C52F29A938A800EA60C3 /* ToDoPlannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94C52E29A938A800EA60C3 /* ToDoPlannerUITests.swift */; };
 		4C94C53129A938A800EA60C3 /* ToDoPlannerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94C53029A938A800EA60C3 /* ToDoPlannerUITestsLaunchTests.swift */; };
+		4C94C54129A961D500EA60C3 /* Launcher.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C94C54029A961D500EA60C3 /* Launcher.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C3A2FEC29AAA2CD00AEC6DB /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		4C3A2FEE29AAB2A500AEC6DB /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
+		4C3A2FF029AABB3000AEC6DB /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		4C3A2FF929ABD45B00AEC6DB /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		4C3A2FFB29ABE82100AEC6DB /* ToDoForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoForm.swift; sourceTree = "<group>"; };
+		4C3A2FFD29AC251A00AEC6DB /* ToDoDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDisplay.swift; sourceTree = "<group>"; };
 		4C94C51029A938A700EA60C3 /* ToDoPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C94C51329A938A700EA60C3 /* ToDoPlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoPlannerApp.swift; sourceTree = "<group>"; };
 		4C94C51529A938A700EA60C3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +57,7 @@
 		4C94C52A29A938A800EA60C3 /* ToDoPlannerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoPlannerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C94C52E29A938A800EA60C3 /* ToDoPlannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoPlannerUITests.swift; sourceTree = "<group>"; };
 		4C94C53029A938A800EA60C3 /* ToDoPlannerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoPlannerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4C94C54029A961D500EA60C3 /* Launcher.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Launcher.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,9 +85,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C3A2FEB29AAA2A100AEC6DB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4C3A2FEC29AAA2CD00AEC6DB /* Theme.swift */,
+				4C3A2FEE29AAB2A500AEC6DB /* ToDo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4C3A2FF429ABCEBD00AEC6DB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C94C51529A938A700EA60C3 /* ContentView.swift */,
+				4C3A2FF029AABB3000AEC6DB /* CardView.swift */,
+				4C3A2FF929ABD45B00AEC6DB /* DatePickerView.swift */,
+				4C3A2FFB29ABE82100AEC6DB /* ToDoForm.swift */,
+				4C3A2FFD29AC251A00AEC6DB /* ToDoDisplay.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		4C94C50729A938A700EA60C3 = {
 			isa = PBXGroup;
 			children = (
+				4C94C54029A961D500EA60C3 /* Launcher.storyboard */,
 				4C94C51229A938A700EA60C3 /* ToDoPlanner */,
 				4C94C52329A938A800EA60C3 /* ToDoPlannerTests */,
 				4C94C52D29A938A800EA60C3 /* ToDoPlannerUITests */,
@@ -94,8 +130,9 @@
 		4C94C51229A938A700EA60C3 /* ToDoPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				4C3A2FF429ABCEBD00AEC6DB /* Views */,
+				4C3A2FEB29AAA2A100AEC6DB /* Models */,
 				4C94C51329A938A700EA60C3 /* ToDoPlannerApp.swift */,
-				4C94C51529A938A700EA60C3 /* ContentView.swift */,
 				4C94C51729A938A800EA60C3 /* Assets.xcassets */,
 				4C94C51929A938A800EA60C3 /* Preview Content */,
 			);
@@ -231,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C94C54129A961D500EA60C3 /* Launcher.storyboard in Resources */,
 				4C94C51B29A938A800EA60C3 /* Preview Assets.xcassets in Resources */,
 				4C94C51829A938A800EA60C3 /* Assets.xcassets in Resources */,
 			);
@@ -257,8 +295,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C3A2FFE29AC251A00AEC6DB /* ToDoDisplay.swift in Sources */,
+				4C3A2FFA29ABD45B00AEC6DB /* DatePickerView.swift in Sources */,
+				4C3A2FFC29ABE82100AEC6DB /* ToDoForm.swift in Sources */,
+				4C3A2FED29AAA2CD00AEC6DB /* Theme.swift in Sources */,
 				4C94C51629A938A700EA60C3 /* ContentView.swift in Sources */,
+				4C3A2FEF29AAB2A500AEC6DB /* ToDo.swift in Sources */,
 				4C94C51429A938A700EA60C3 /* ToDoPlannerApp.swift in Sources */,
+				4C3A2FF129AABB3000AEC6DB /* CardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,9 +464,10 @@
 				DEVELOPMENT_TEAM = 2LMWNN3A7H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ToDoPlanner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Launcher.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -449,9 +494,10 @@
 				DEVELOPMENT_TEAM = 2LMWNN3A7H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ToDoPlanner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Launcher.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
