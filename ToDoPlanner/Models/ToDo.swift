@@ -8,30 +8,30 @@
 import Foundation
 
 
-struct ToDo: Identifiable {
+struct ToDo: Identifiable, Codable {
     let id: UUID
     var category: String
     var title: String
-    var remainingTime: Int
-    var status: String
-    var theme: Theme
+    var dateStart: Date
+    var dateEnd: Date
+    var status: String?
+    var tasks: [String]
+    var icon: String
+    var theme: String
     
-    init(id: UUID = UUID(), category: String, title: String, remainingTime: Int, status: String, theme: Theme) {
+    
+    
+    init(id: UUID = UUID(), category: String, title: String, dateStart: Date, dateEnd: Date, task: [String], icon: String, status: String, theme: String) {
         self.id = id
         self.category = category
         self.title = title
-        self.remainingTime = remainingTime
+        self.dateStart = dateStart
+        self.dateEnd = dateEnd
         self.status = status
+        self.tasks = task
+        self.icon = icon
         self.theme = theme
     }
     
 }
 
-extension ToDo{
-    static let sampleData: [ToDo] = [
-        ToDo(category: "Work", title: "Finish Mobile Mockup", remainingTime: 7, status: "Active", theme: .YellowAccent),
-        ToDo(category: "Home", title: "Paint Cabinets", remainingTime: 3, status: "Complete", theme: .TealAccent),
-        ToDo(category: "Food", title: "Get Groceries", remainingTime: 2, status: "Incomplete", theme: .PurpleAccent),
-        ToDo(category: "Finance", title: "Pay Bills", remainingTime: 1, status: "Active", theme: .GreenAccent)
-    ]
-}

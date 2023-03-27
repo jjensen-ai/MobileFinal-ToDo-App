@@ -39,7 +39,7 @@ struct CardView: View {
                 .accessibilityAddTraits(.isHeader)
             
             HStack{
-                Text("\(String(todo.remainingTime)) Hours")
+                Text("5 Hours")
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
                     .fontWeight(.bold)
@@ -47,22 +47,22 @@ struct CardView: View {
                     .background(Color("BGBlack-100"))
                     .cornerRadius(35)
                     .foregroundColor(Color.white)
-                    .accessibilityLabel("\(todo.remainingTime) hours remain to finish this task")
+                    .accessibilityLabel("5 hours remain to finish this task")
                 
                 Spacer()
                 
-                Text(todo.status)
+                Text(todo.status ?? "active")
                     .fontWeight(.bold)
-                    .accessibilityLabel("This activity is \(todo.status)")
+                    .accessibilityLabel("This activity is active")
                     
             }
         }
     }
 }
 
-struct CardView_Previews: PreviewProvider {
-    static var todo = ToDo.sampleData[0]
-    static var previews: some View {
-        CardView(todo: todo)
-    }
-}
+//struct CardView_Previews: PreviewProvider {
+//    static var todo = ToDo.sampleData[0]
+//    static var previews: some View {
+//        CardView(todo: todo)
+//    }
+//}

@@ -11,11 +11,11 @@ import Foundation
 struct ContentView: View {
     
     // Using TODO Struc as array type so we can use the example data
-    let todoItems: [ToDo]
     
     // State Variables for date and toggling the calendar
     @State private var date = Date()
     @State var toggleCalendar = false
+    @State public var todoItems = [ToDo]()
     
     // Counting any item status that match the string when called
     func activeCount(Status: String) -> Int{
@@ -168,19 +168,31 @@ struct ContentView: View {
                     .padding(.top, 10)
                     
                     ScrollView{
-
-                        ForEach(todoItems) { todo in
-                            NavigationLink(destination: ToDoDisplay())
-                            {
-                                CardView(todo: todo)
-                                    .padding(.all, 12.5)
-                                    .background(todo.theme.mainColor)
-                                    .foregroundColor(todo.theme.accentColor)
-                                    .cornerRadius(15)
-                                    .padding(.bottom, 20)
-                            }
-
+                        
+                        if(todoItems.count == 0) {
+                            Text("Nothing to do...")
+                                .padding(.horizontal)
+                                .font(.system(size: 32))
+                                .foregroundColor(Color.white)
+                                .fontWeight(.black)
+                                .fontWidth(.compressed)
+                                .padding(.top, 100)
                         }
+                        else{
+                            ForEach(todoItems) { todo in
+                                NavigationLink(destination: ToDoDisplay())
+                                {
+                                    CardView(todo: todo)
+                                        .padding(.all, 12.5)
+                                        .background(Color(todo.theme))
+                                        .foregroundColor(Color(.black))
+                                        .cornerRadius(15)
+                                        .padding(.bottom, 20)
+                                }
+                            }
+                            
+                        }
+
                     }
                     .frame(height: 500)
                     .padding(.top, 10)
@@ -193,21 +205,21 @@ struct ContentView: View {
                         Text("\(String(isActive)) Active")
                             .foregroundColor(Color.white)
                             .fontWeight(.black)
-                            .font(.system(size: 18))
+                            .font(.system(size: 16))
                             .padding(.trailing, 8)
                         Text("\(String(isComplete)) Complete")
                             .foregroundColor(Color("PurpleAccent"))
                             .fontWeight(.black)
-                            .font(.system(size: 18))
+                            .font(.system(size: 16))
                             .padding(.trailing, 8)
 
                         Text("\(String(inComplete)) Incomplete")
                             .foregroundColor(Color("RedAccent"))
                             .fontWeight(.black)
-                            .font(.system(size: 18))
+                            .font(.system(size: 16))
                         
                         Spacer()
-                        NavigationLink(destination: ToDoForm())
+                        NavigationLink(destination: ToDoForm(todoItems: $todoItems))
                         {
                                 Image(systemName: "plus.circle")
                                     .foregroundColor(Color("YellowAccent"))
@@ -228,6 +240,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(todoItems: ToDo.sampleData)
+        ContentView()
     }
 }
