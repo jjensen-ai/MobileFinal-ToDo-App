@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct ToDoDisplay: View {
-    @State private var completed1 = false
-    @State private var completed2 = false
-    @State private var completed3 = false
-    @State private var completed4 = false
-    @State private var completed5 = false
+    @ObservedObject var todo: ToDo
     
     // Environment variable to dismiss the page on button click
     @Environment(\.dismiss) private var dismiss
@@ -20,23 +16,16 @@ struct ToDoDisplay: View {
 
     var body: some View {
         ZStack{
-            Color("YellowAccent").ignoresSafeArea()
+            Color(todo.theme).ignoresSafeArea()
             VStack(alignment: .leading, spacing: 10){
                 HStack{
-                    Label("Work", systemImage: "briefcase.fill")
+                    Label(todo.category, systemImage: todo.icon)
                         .fontWeight(.heavy)
                         .foregroundColor(Color.black)
                         .font(.system(size: 24))
-                    Spacer()
-                    Button(){}label: {
-                        Image(systemName: "ellipsis")
-                            .foregroundColor(Color.black)
-                            .fontWeight(.black)
-                            .font(.system(size: 24))
-                    }
                 }.padding(.bottom)
                 VStack(alignment: .leading, spacing: 5){
-                    Text("Finish Mobile Mockup")
+                    Text(todo.title)
                         .font(.system(size: 48))
                         .fontWidth(.compressed)
                         .fontWeight(.black)
@@ -46,11 +35,11 @@ struct ToDoDisplay: View {
                         .font(.system(size: 32))
                         .padding(.leading)
 
-                    Text("Need to complete several screens to set up the GUI for the application, with some light programming added.")
+                    Text(todo.description)
                         .fontWeight(.semibold)
                         .font(.system(size: 18))
-                        .frame(width: 350)
-                        .padding(.leading, 25)
+                        .frame(width: 350,alignment: .leading)
+                        .padding(.leading)
                         
                 }
                 VStack(alignment: .leading, spacing: 5){
@@ -58,10 +47,17 @@ struct ToDoDisplay: View {
                         .fontWeight(.heavy)
                         .font(.system(size: 48))
                         .fontWidth(.compressed)
-                    Text("8:30 AM - 4:30 PM")
-                        .fontWeight(.bold)
-                        .font(.system(size: 24))
-                        .padding(.leading, 25)
+                    HStack{
+                        Text(todo.dateStart, style: .time)
+                            .fontWeight(.bold)
+                            .font(.system(size: 24))
+                            .padding(.leading, 25)
+                        Text("-")
+                        Text(todo.dateEnd, style: .time)
+                            .fontWeight(.bold)
+                            .font(.system(size: 24))
+                    }
+                    
                 }
                 VStack(alignment: .leading){
                     Text("Tasks")
@@ -69,44 +65,39 @@ struct ToDoDisplay: View {
                         .font(.system(size: 48))
                         .fontWidth(.compressed)
                         .padding(.bottom, -5)
+                    
                     ScrollView{
-                        VStack(alignment: .leading){
-                            HStack{
-                                Text("Launch Screen")
-                                    .fontWeight(.heavy)
-                                    .font(.system(size: 24))
-                                Toggle("", isOn: $completed1)
-                            }
-                            .padding(.leading, 25)
-                            HStack{
-                                Text("Home Screen")
-                                    .fontWeight(.heavy)
-                                    .font(.system(size: 24))
-                                Toggle("", isOn: $completed2)
-                            }
-                            .padding(.leading, 25)
-                            HStack{
-                                Text("Form Screen")
-                                    .fontWeight(.heavy)
-                                    .font(.system(size: 24))
-                                Toggle("", isOn: $completed3)
-                            }
-                            .padding(.leading, 25)
-                            HStack{
-                                Text("TODO Screen")
-                                    .fontWeight(.heavy)
-                                    .font(.system(size: 24))
-                                Toggle("", isOn: $completed4)
-                            }
-                            .padding(.leading, 25)
+                        if(todo.tasks.count == 0){
+                            Text("Nothing to do...")
+                                .padding(.horizontal)
+                                .font(.system(size: 32))
+                                .foregroundColor(Color.white)
+                                .fontWeight(.black)
+                                .fontWidth(.compressed)
+                                .padding(.top, 100)
+                        
                         }
-                        .padding(.trailing)
+                        else{
+                            VStack(alignment: .leading){
+                                ForEach(todo.tasks, id: \.description){item in
+                                    HStack{
+                                        Text(item)
+                                            .fontWeight(.heavy)
+                                            .font(.system(size: 24))
+                                    }
+                                }
+
+                            }
+                            .padding(.trailing)
+                            
+                        }
+                        
                     }
                     .frame(maxHeight: 250)
                     
                 }
                 HStack{
-                    Toggle("", isOn: $completed5)
+                    Toggle("", isOn: $todo.isCompleted)
                         .frame(maxWidth: 50)
                     Spacer()
                     Text("Complete")
@@ -144,6 +135,6 @@ struct ToDoDisplay: View {
 
 struct ToDoDisplay_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoDisplay()
+        ToDoDisplay(todo: ToDo(category: "", title: "", description: "" , dateStart: Date(), dateEnd: Date(), task: [""], status: "", icon: "", theme: ""))
     }
 }

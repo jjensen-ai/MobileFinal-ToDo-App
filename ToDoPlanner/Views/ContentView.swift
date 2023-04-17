@@ -8,29 +8,37 @@
 import SwiftUI
 import Foundation
 
+
 struct ContentView: View {
     
     // Using TODO Struc as array type so we can use the example data
     
     // State Variables for date and toggling the calendar
-    @State private var date = Date()
+    @State var date = Date()
     @State var toggleCalendar = false
-    @State public var todoItems = [ToDo]()
+    @State var count = 0
+    @State var displayAll = true
+    @State var displayCompleted = false
+    @State var displayActive = false
+    @State var displayInComplete = false
+    @Binding public var todoItems: [ToDo]
+    @Environment(\.scenePhase) private var scenePhase
+    let saveAction: ()->Void
     
     // Counting any item status that match the string when called
     func activeCount(Status: String) -> Int{
         let count = todoItems.filter { $0.status == Status }.count
-        
         return count
     }
     
     // Formatting the date to a string, that accepts a String of the format to produce the current date at the top of the page
-    func currentDate(Format: String) -> String{
-        let date = Date()
+    func currentDate(Format: String, pickedDate: Date) -> String{
+        let date = pickedDate
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = Format
         return dateFormatter.string(from: date)
     }
+    
     
     var body: some View {
         NavigationView{
@@ -48,14 +56,6 @@ struct ContentView: View {
                         }
                         Spacer()
                         LazyHStack{
-                            Button{()}label: {
-                                Image(systemName: "repeat")
-                                    .imageScale(.large)
-                                    .tint(Color("YellowAccent"))
-                                    .font(.system(size: 24))
-                                    .fontWeight(.bold)
-                            }
-                            .padding(.trailing, 10)
                             Button{
                                 toggleCalendar.toggle()
                             }label: {
@@ -66,7 +66,7 @@ struct ContentView: View {
                                     .fontWeight(.bold)
                             }
                             .sheet(isPresented: $toggleCalendar){
-                                DatePickerView()
+                                DatePickerView(date: $date)
                                     .presentationDetents([.height(450)])
                             }
                             
@@ -81,7 +81,7 @@ struct ContentView: View {
                     .frame(height: 100)
                     HStack{
                         LazyVStack{
-                            Text(currentDate(Format:"EEEE")) // Weekday format
+                            Text(currentDate(Format:"EEEE", pickedDate: date)) // Weekday format
                                 .foregroundColor(Color("YellowAccent")
                                 )
                                 .font(.system(size: 24))
@@ -89,21 +89,21 @@ struct ContentView: View {
                                 .frame(maxWidth: .infinity, maxHeight: 20,alignment: .bottomLeading)
                                 .padding(.bottom, -100)
                             HStack{
-                                Text(currentDate(Format:"MMMM")) // Long Month format
+                                Text(currentDate(Format:"MMMM", pickedDate: date)) // Long Month format
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 40))
                                     .fontWidth(.compressed)
                                     .fontWeight(.black)
                                     .frame(maxHeight: 55,alignment: .bottom)
 
-                                Text(currentDate(Format: "d"))// Day number of hte month format
+                                Text(currentDate(Format: "d", pickedDate: date))// Day number of hte month format
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 70))
                                     .fontWidth(.compressed)
                                     .fontWeight(.black)
                                     .padding(.top, -10)
                                 
-                                Text(currentDate(Format: "y")) // Year Format
+                                Text(currentDate(Format: "y", pickedDate: date)) // Year Format
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 40))
                                     .fontWidth(.compressed)
@@ -133,8 +133,11 @@ struct ContentView: View {
 
                         Spacer()
                         LazyHStack{
-                            Button(){
-                    
+                            Button{
+                                displayAll = true
+                                displayActive = false
+                                displayCompleted = false
+                                displayInComplete = false
                             }label: {
                                 Text("All")
                                     .padding(.horizontal)
@@ -143,7 +146,11 @@ struct ContentView: View {
                                     .foregroundColor(Color.white)
                                     .fontWeight(.bold)
                             }
-                            Button(){
+                            Button{
+                                displayAll = false
+                                displayActive = false
+                                displayCompleted = true
+                                displayInComplete = false
                             }label: {
                                 Image(systemName: "checkmark")
                                     .padding(.horizontal)
@@ -152,7 +159,24 @@ struct ContentView: View {
                                     .foregroundColor(Color.white)
                                     .fontWeight(.bold)
                             }
-                            Button(){
+                            Button{
+                                displayAll = false
+                                displayActive = true
+                                displayCompleted = false
+                                displayInComplete = false
+                            }label: {
+                                Image(systemName: "clock.arrow.2.circlepath")
+                                    .padding(.horizontal)
+                                    .overlay(RoundedRectangle(cornerRadius: 30).stroke(.white, lineWidth: 2))
+                                    .font(.system(size:20))
+                                    .foregroundColor(Color.white)
+                                    .fontWeight(.bold)
+                            }
+                            Button{
+                                displayAll = false
+                                displayActive = false
+                                displayCompleted = false
+                                displayInComplete = true
                             }label: {
                                 Text("X")
                                     .padding(.horizontal)
@@ -168,31 +192,43 @@ struct ContentView: View {
                     .padding(.top, 10)
                     
                     ScrollView{
-                        
-                        if(todoItems.count == 0) {
-                            Text("Nothing to do...")
-                                .padding(.horizontal)
-                                .font(.system(size: 32))
-                                .foregroundColor(Color.white)
-                                .fontWeight(.black)
-                                .fontWidth(.compressed)
-                                .padding(.top, 100)
-                        }
-                        else{
                             ForEach(todoItems) { todo in
-                                NavigationLink(destination: ToDoDisplay())
+                                NavigationLink(destination: ToDoDisplay(todo: todo))
                                 {
-                                    CardView(todo: todo)
-                                        .padding(.all, 12.5)
-                                        .background(Color(todo.theme))
-                                        .foregroundColor(Color(.black))
-                                        .cornerRadius(15)
-                                        .padding(.bottom, 20)
+                                    if( Calendar.current.isDate(date, inSameDayAs: todo.dateStart) && displayAll){
+                                        CardView(todo: todo, todoItems: $todoItems)
+                                            .padding(.all, 12.5)
+                                            .background(Color(todo.theme))
+                                            .foregroundColor(Color(.black))
+                                            .cornerRadius(15)
+                                            .padding(.bottom, 20)
+                                    }
+                                    if( Calendar.current.isDate(date, inSameDayAs: todo.dateStart) && displayCompleted && todo.status == "Complete"){
+                                        CardView(todo: todo, todoItems: $todoItems)
+                                            .padding(.all, 12.5)
+                                            .background(Color(todo.theme))
+                                            .foregroundColor(Color(.black))
+                                            .cornerRadius(15)
+                                            .padding(.bottom, 20)
+                                    }
+                                    if( Calendar.current.isDate(date, inSameDayAs: todo.dateStart) && displayInComplete && todo.status == "Incomplete"){
+                                        CardView(todo: todo, todoItems: $todoItems)
+                                            .padding(.all, 12.5)
+                                            .background(Color(todo.theme))
+                                            .foregroundColor(Color(.black))
+                                            .cornerRadius(15)
+                                            .padding(.bottom, 20)
+                                    }
+                                    if( Calendar.current.isDate(date, inSameDayAs: todo.dateStart) && displayActive && todo.status == "Active"){
+                                        CardView(todo: todo, todoItems: $todoItems)
+                                            .padding(.all, 12.5)
+                                            .background(Color(todo.theme))
+                                            .foregroundColor(Color(.black))
+                                            .cornerRadius(15)
+                                            .padding(.bottom, 20)
+                                    }
                                 }
                             }
-                            
-                        }
-
                     }
                     .frame(height: 500)
                     .padding(.top, 10)
@@ -226,6 +262,10 @@ struct ContentView: View {
                                     .font(.system(size: 50))
                             
                         }
+                        .onChange(of: scenePhase){
+                            phase in
+                            if phase == .inactive{saveAction()}
+                        }
                         
                     }
                     .padding(.top, 40)
@@ -240,6 +280,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(todoItems: .constant([ToDo(category: "", title: "", description: "", dateStart: Date(), dateEnd: Date(), task: [""],status: "", icon: "", theme: "", isCompleted: false)]), saveAction: {})
     }
+    
 }

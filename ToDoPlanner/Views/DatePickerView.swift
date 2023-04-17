@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct DatePickerView: View {
-    @State private var date = Date()
+    @Binding var date: Date
     var body: some View {
         ZStack{
             Color(.black)
@@ -20,7 +20,7 @@ struct DatePickerView: View {
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundColor(Color.white)
-                DatePicker("Pick", selection: $date, in: Date()..., displayedComponents: [.date])
+                DatePicker("Pick", selection: $date, displayedComponents: [.date])
                     .datePickerStyle(.graphical)
                     .colorScheme(.dark)
                     .tint(Color("PurpleAccent"))
@@ -31,6 +31,6 @@ struct DatePickerView: View {
 
 struct DatePickerView_Previews: PreviewProvider {
     static var previews: some View {
-        DatePickerView()
+        DatePickerView(date: .constant(Date()))
     }
 }

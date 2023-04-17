@@ -19,12 +19,15 @@ struct ToDoForm: View {
     @State public var dateEnd = Date()
     @State public var tasks = [String]()
     
+    
     @State public var colorChoice = "Yellow"
     @State public var iconChoice = "square.dotted"
     
     // Environment variable to dismiss the page on button click
     @Environment(\.dismiss) private var dismiss
-    @Binding public var todoItems: [ToDo]
+
+    @Binding var todoItems: [ToDo]
+    
     
     var body: some View {
         ZStack
@@ -236,7 +239,7 @@ struct ToDoForm: View {
                     }
                 }
                 Spacer()
-                Button{todoItems.append(ToDo(category: category, title: title, dateStart: dateStart, dateEnd: dateEnd, task: tasks, icon: iconChoice, status: "", theme: "\(colorChoice)Accent")); dismiss()}label:{
+                Button{todoItems.append(ToDo(category: category, title: title, description: description, dateStart: dateStart, dateEnd: dateEnd, task: tasks, status: "", icon: iconChoice, theme: "\(colorChoice)Accent", isCompleted: false)); dismiss()}label:{
                     Label("Add TODO", systemImage: "checkmark.circle.fill")
                         .padding()
                         .background(Color("GreenAccent"))
@@ -268,11 +271,12 @@ struct ToDoForm: View {
                 }
             }
         }
+       
     }
 }
 
 struct ToDoForm_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoForm( todoItems: .constant([ToDo(category: "", title: "", dateStart: Date(), dateEnd: Date(), task: [""], icon: "", status: "", theme: "")]))
+        ToDoForm( todoItems: .constant([ToDo(category: "", title: "",description: "", dateStart: Date(), dateEnd: Date(), task: [""], status: "", icon: "",  theme: "", isCompleted: false)]))
     }
 }

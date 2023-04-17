@@ -9,9 +9,26 @@ import SwiftUI
 
 @main
 struct ToDoPlannerApp: App {
+    @StateObject private var store = ToDoStore()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(todoItems: $store.todos){
+                Task {
+                    do{
+                        try await store.save(todos: store.todos)
+                    }catch{
+                        fatalError(error.localizedDescription)
+                    }
+                }
+            }
+                .task {
+                    do{
+                        try await store.load()
+                    } catch {
+                        fatalError(error.localizedDescription)
+                    }
+                }
         }
     }
 }
